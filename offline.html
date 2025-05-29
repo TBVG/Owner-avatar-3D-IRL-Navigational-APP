@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - NaviPro</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --primary-color: #2196F3;
+      --text-primary: #212121;
+      --text-secondary: #757575;
+      --background-light: #FFFFFF;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Inter', sans-serif;
+    }
+
+    body {
+      background: var(--background-light);
+      color: var(--text-primary);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      text-align: center;
+    }
+
+    .offline-container {
+      max-width: 600px;
+      padding: 40px;
+      background: white;
+      border-radius: 12px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    }
+
+    .offline-icon {
+      font-size: 64px;
+      color: var(--primary-color);
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      font-size: 2em;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+    }
+
+    p {
+      color: var(--text-secondary);
+      margin-bottom: 25px;
+      line-height: 1.6;
+    }
+
+    .cached-routes {
+      margin-top: 30px;
+      text-align: left;
+    }
+
+    .cached-routes h2 {
+      font-size: 1.2em;
+      margin-bottom: 15px;
+      color: var(--text-primary);
+    }
+
+    .route-list {
+      list-style: none;
+    }
+
+    .route-item {
+      padding: 10px;
+      border: 1px solid #E0E0E0;
+      border-radius: 8px;
+      margin-bottom: 10px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .route-item:hover {
+      background: #F5F5F5;
+      border-color: var(--primary-color);
+    }
+
+    .retry-button {
+      background: var(--primary-color);
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      border-radius: 8px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .retry-button:hover {
+      background: #1976D2;
+    }
+  </style>
+</head>
+<body>
+  <div class="offline-container">
+    <div class="offline-icon">📡</div>
+    <h1>You're Offline</h1>
+    <p>Don't worry! You can still access your cached routes and continue navigation.</p>
+    
+    <div class="cached-routes">
+      <h2>Available Routes</h2>
+      <ul class="route-list" id="cachedRoutesList">
+        <!-- Routes will be populated by JavaScript -->
+      </ul>
+    </div>
+
+    <button class="retry-button" onclick="window.location.reload()">
+      Try Again
+    </button>
+  </div>
+
+  <script>
+    // Check for cached routes in IndexedDB
+    async function loadCachedRoutes() {
+      try {
+        const db = await openDatabase();
+        const tx = db.transaction('routes', 'readonly');
+        const store = tx.objectStore('routes');
+        const routes = await store.getAll();
+        
+        const routesList = document.getElementById('cachedRoutesList');
+        routesList.innerHTML = '';
+        
+        if (routes.length === 0) {
+          routesList.innerHTML = '<li class="route-item">No cached routes available</li>';
+          return;
+        }
+
+        routes.forEach(route => {
+          const li = document.createElement('li');
+          li.className = 'route-item';
+          li.textContent = `${route.properties.segments[0].steps[0].name} to ${route.properties.segments[0].steps[route.properties.segments[0].steps.length - 1].name}`;
+          li.onclick = () => {
+            // Store selected route in sessionStorage for main app to use
+            sessionStorage.setItem('selectedOfflineRoute', JSON.stringify(route));
+            window.location.href = '/';
+          };
+          routesList.appendChild(li);
+        });
+      } catch (error) {
+        console.error('Error loading cached routes:', error);
+      }
+    }
+
+    function openDatabase() {
+      return new Promise((resolve, reject) => {
+        const request = indexedDB.open('NaviProOffline', 1);
+        
+        request.onerror = () => reject(request.error);
+        request.onsuccess = () => resolve(request.result);
+      });
+    }
+
+    // Load cached routes when page loads
+    loadCachedRoutes();
+  </script>
+</body>
+</html> 

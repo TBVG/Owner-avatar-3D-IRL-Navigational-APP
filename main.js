@@ -203,17 +203,19 @@ async function handleGeocoding(input, suggestionsContainer, isFrom) {
   }
 
   try {
-    // Use a CORS proxy
     const response = await fetch(
-      `https://cors-anywhere.herokuapp.com/https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`,
+      `https://nominatim.openstreetmap.org/search?format=json&q=${encodeURIComponent(query)}&limit=5`,
       {
         headers: {
           'Accept-Language': 'en-US,en;q=0.9',
-          'User-Agent': '3DNavigationApp',
-          'Origin': 'http://localhost:5173'
+          'User-Agent': '3DNavigationApp'
         }
       }
     );
+
+    if (!response.ok) {
+      throw new Error('Geocoding service error');
+    }
 
     const results = await response.json();
     
@@ -225,6 +227,7 @@ async function handleGeocoding(input, suggestionsContainer, isFrom) {
         
         div.onclick = () => {
           input.value = result.display_name;
+          input.dataset.selectedLocation = result.display_name;
           suggestionsContainer.style.display = 'none';
           
           const location = Cartesian3.fromDegrees(
@@ -277,6 +280,10 @@ fromInput.addEventListener('input', () => {
   // Clear location if input is changed
   fromLocation = null;
   document.getElementById('findRoute').disabled = true;
+  // Clear the input if it doesn't match any selected location
+  if (fromInput.value !== fromInput.dataset.selectedLocation) {
+    fromInput.value = '';
+  }
 });
 
 toInput.addEventListener('input', () => {
@@ -284,18 +291,24 @@ toInput.addEventListener('input', () => {
   // Clear location if input is changed
   toLocation = null;
   document.getElementById('findRoute').disabled = true;
+  // Clear the input if it doesn't match any selected location
+  if (toInput.value !== toInput.dataset.selectedLocation) {
+    toInput.value = '';
+  }
 });
 
 // Prevent manual editing of input fields
 fromInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
+    fromSuggestions.style.display = 'none';
   }
 });
 
 toInput.addEventListener('keydown', (e) => {
   if (e.key === 'Enter') {
     e.preventDefault();
+    toSuggestions.style.display = 'none';
   }
 });
 

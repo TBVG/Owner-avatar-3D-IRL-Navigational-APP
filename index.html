@@ -1,7 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
   <title>3D Navigation</title>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   <style>
@@ -67,8 +71,9 @@
     }
 
     .input-group {
-      margin-bottom: 15px;
       position: relative;
+      margin-bottom: 15px;
+      width: 100%;
     }
 
     .input-group label {
@@ -380,9 +385,6 @@
   <div id="navigationPanel">
     <div class="panel-header">
       <div class="app-title">3D Navigation</div>
-      <button class="theme-toggle" id="themeToggle">
-        <i class="fas fa-moon"></i>
-      </button>
     </div>
     <div class="input-group">
       <label for="fromLocation">From:</label>
@@ -394,51 +396,10 @@
       <input type="text" id="toLocation" placeholder="Enter destination" autocomplete="off">
       <div id="toSuggestions" class="suggestions"></div>
     </div>
-    <div class="route-options">
-      <div class="route-option active" data-profile="driving-car">
-        <i class="fas fa-tachometer-alt"></i>
-        Fastest
-      </div>
-      <div class="route-option" data-profile="driving-car-shortest">
-        <i class="fas fa-road"></i>
-        Shortest
-      </div>
-    </div>
-    <div class="premium-features">
-      <div class="feature-toggle">
-        <span>Traffic Information</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="trafficToggle">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-      <div class="feature-toggle">
-        <span>3D Buildings</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="buildingsToggle" checked>
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-      <div class="feature-toggle">
-        <span>Points of Interest</span>
-        <label class="toggle-switch">
-          <input type="checkbox" id="poiToggle">
-          <span class="toggle-slider"></span>
-        </label>
-      </div>
-    </div>
     <div class="button-group">
       <button id="findRoute" class="primary-button">
         <i class="fas fa-route"></i>
         Find Route
-      </button>
-      <button id="clearRoute" class="secondary-button">
-        <i class="fas fa-times"></i>
-        Clear Route
-      </button>
-      <button id="useMyLocation" class="secondary-button">
-        <i class="fas fa-location-arrow"></i>
-        Use My Location
       </button>
     </div>
   </div>
@@ -484,6 +445,6 @@
       <div id="progressBar"></div>
     </div>
   </div>
-  <script type="module" src="/main.js"></script>
+  <script src="main.js"></script>
 </body>
 </html>

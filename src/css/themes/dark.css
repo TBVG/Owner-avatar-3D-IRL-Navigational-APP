@@ -1,0 +1,20 @@
+/*:root {
+  --primary-color: #64B5F6;
+  --secondary-color: #42A5F5;
+  --accent-color: #FF80AB;
+  --success-color: #81C784;
+  --warning-color: #FFD54F;
+  --danger-color: #E57373;
+  --text-primary: #FFFFFF;
+  --text-secondary: #B0BEC5;
+  --background-light: rgba(18, 18, 18, 0.85);
+  --background-dark: rgba(0, 0, 0, 0.85);
+  --shadow-color: rgba(0, 0, 0, 0.2);
+  --border-color: rgba(255, 255, 255, 0.1);
+  --hover-color: rgba(255, 255, 255, 0.05);
+  --glass-background: rgba(18, 18, 18, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+  --glass-blur: blur(12px);
+  --glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0));
+} */

@@ -1,0 +1,219 @@
+#navigationPanel, #directionsPanel, #navigationMode {
+  position: absolute;
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+  padding: 24px;
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+#navigationPanel {
+  top: 20px;
+  left: 20px;
+  width: 360px;
+  padding: 24px;
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  border-radius: 16px;
+  box-shadow: var(--glass-shadow);
+  z-index: 999;
+  transition: all 0.3s ease;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--glass-border);
+}
+
+.app-title {
+  font-size: 1.8em;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  position: relative;
+  padding: 8px 16px 8px 24px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 12px;
+  background: var(--glass-background);
+  backdrop-filter: var(--glass-blur);
+  -webkit-backdrop-filter: var(--glass-blur);
+  border: 1px solid var(--glass-border);
+  box-shadow: var(--glass-shadow);
+  color: var(--primary-color);
+  text-shadow: 2px 2px 4px var(--shadow-color);
+  letter-spacing: -0.5px;
+  animation: colorChange 8s infinite;
+}
+
+@keyframes colorChange {
+  0% {
+    color: var(--primary-color);
+  }
+  25% {
+    color: var(--secondary-color);
+  }
+  50% {
+    color: var(--accent-color);
+  }
+  75% {
+    color: var(--success-color);
+  }
+  100% {
+    color: var(--primary-color);
+  }
+}
+
+.app-title:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px var(--shadow-color);
+  background: var(--glass-gradient);
+  animation: none;
+  color: var(--primary-color);
+}
+
+.app-title:active {
+  transform: translateY(0);
+}
+
+.app-title::before {
+  content: '';
+  position: absolute;
+  left: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 70%;
+  background: linear-gradient(to bottom, var(--primary-color), var(--secondary-color));
+  border-radius: 2px;
+  transition: all 0.3s ease;
+}
+
+.app-title:hover::before {
+  height: 85%;
+  background: linear-gradient(to bottom, var(--secondary-color), var(--primary-color));
+}
+
+#directionsPanel {
+  top: 20px;
+  right: 20px;
+  width: 360px;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.route-summary {
+  padding: 20px;
+  background: var(--glass-gradient);
+  border-radius: 12px;
+  margin-bottom: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+.route-info {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+.route-info-item {
+  text-align: center;
+  padding: 12px;
+  background: var(--glass-background);
+  border-radius: 8px;
+  border: 1px solid var(--glass-border);
+  min-width: 100px;
+}
+
+.route-info-label {
+  font-size: 0.8em;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.route-info-value {
+  font-size: 1.2em;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+#navigationMode {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%;
+  max-width: 500px;
+}
+
+.navigation-header {
+  text-align: center;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: var(--glass-gradient);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+}
+
+#nextTurn {
+  font-size: 1.4em;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 8px;
+  text-shadow: 0 2px 4px var(--shadow-color);
+}
+
+#nextTurnDistance {
+  font-size: 1.1em;
+  color: var(--text-secondary);
+}
+
+.navigation-progress {
+  height: 6px;
+  background: var(--glass-background);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-top: 20px;
+  border: 1px solid var(--glass-border);
+}
+
+#progressBar {
+  height: 100%;
+  background: var(--success-color);
+  width: 0%;
+  transition: width 0.3s ease;
+  box-shadow: 0 0 10px var(--success-color);
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--glass-background);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--glass-border);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--primary-color);
+}
+
+@media (max-width: 768px) {
+  #navigationPanel, #directionsPanel {
+    width: calc(100% - 40px);
+  }
+} 

@@ -1,0 +1,20 @@
+:root {
+  --primary-color: #2196F3;
+  --secondary-color: #1976D2;
+  --accent-color: #FF4081;
+  --success-color: #4CAF50;
+  --warning-color: #FFC107;
+  --danger-color: #f44336;
+  --text-primary: #212121;
+  --text-secondary: #757575;
+  --background-light: rgba(255, 255, 255, 0.85);
+  --background-dark: rgba(18, 18, 18, 0.85);
+  --shadow-color: rgba(0, 0, 0, 0.1);
+  --border-color: rgba(255, 255, 255, 0.2);
+  --hover-color: rgba(255, 255, 255, 0.1);
+  --glass-background: rgba(255, 255, 255, 0.7);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+  --glass-blur: blur(12px);
+  --glass-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
+} 
